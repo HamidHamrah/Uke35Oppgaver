@@ -268,14 +268,13 @@ public class Tabell {
 
     } // nestMaks
 
-    public static void sortering(int[] a){
-        int n=a.length;
-        if (n<2){
-            throw new NoSuchElementException("Tabell er tom eller har kun 1 element");
+    public static void sortering(int[] a)
+    {
+        for (int i = a.length; i > 1; i--)
+        {
+            int m = Tabell.maks(a,0,i);
+            Tabell.bytt(a,i-1,m);
         }
-        int m=maks(a);
-        bytt(a,a.length-1,m);
-
     }
 
 

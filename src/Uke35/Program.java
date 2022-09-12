@@ -23,9 +23,17 @@ public class Program {
 
         int m = b[0], nm = b[1];       // m for maks, nm for nestmaks
 
-        Tabell.skriv2(a);        // se Oppgave 5 i Avsnitt 1.2.2
-        System.out.print("Størst(" + a[m] + ") har posisjon " + m);
-        System.out.print(", nest størst(" + a[nm] + ") har posisjon " + nm);
+      //  Tabell.skriv2(a);        // se Oppgave 5 i Avsnitt 1.2.2
+       // System.out.print("Størst(" + a[m] + ") har posisjon " + m);
+      //  System.out.print(", nest størst(" + a[nm] + ") har posisjon " + nm);
+        for (int i:a){
+            System.out.print(i+" ");
+        }
+        System.out.println();
+        Tabell.sortering(a);
+        for (int i:a){
+            System.out.print(i+" ");
+        }
     }
 
 }
