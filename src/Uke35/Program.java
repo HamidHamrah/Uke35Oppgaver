@@ -35,7 +35,7 @@ public class Program {
      //   for (int i:a){
      //       System.out.print(i+" ");
      //   }
-        int[] d = {2, 3, 6, 1 ,4 ,5};
+    /*    int[] d = {2, 3, 6, 1 ,4 ,5};
         System.out.println(Arrays.toString(d));// permutasjon av tallene fra 1 til 10
         Tabell.nestePermutasjon(d);              // lager neste permutasjon
         System.out.println(Arrays.toString(d));
@@ -59,5 +59,10 @@ public class Program {
         System.out.println(Arrays.toString(d));
 
     }
-
+    */
+  int[] a = {7,5,9,2,10,4,1,8,6,3};     // en usortert heltallstabell
+  Tabell.utvalgssortering(a);           // stigende sortering
+  Tabell.snu(a);                        // tabellen snus
+  Tabell.skriv(a);
+    }              // 10 9 8 7 6 5 4 3 2 1
 }
