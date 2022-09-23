@@ -62,7 +62,7 @@ public class Program {
     */
      //   int[] a = {1, 3, 4, 4, 5, 7, 7, 7, 7, 8, 9, 10, 10, 12, 15, 15, 15};
      //   System.out.println(Tabell.binærsøk3d(a,4));
-        int[] a = Tabell.randPerm(100000);
+   /*     int[] a = Tabell.randPerm(100000);
         int[] b = a.clone();
         long tid1 =System.currentTimeMillis();
         Tabell.utvalgssortering(a);
@@ -74,6 +74,18 @@ public class Program {
 
         System.out.println("Utvalgsortering har brukt: "+tid1);
         System.out.println("InsetningSortering har brukt: "+tid2);
-    }// 10 9 8 7 6 5 4 3 2 1
+
+
+
+        String[] s = {"Sohil","Per","Thanh","Fatima","Kari","Jasmin"};
+        int k = Tabell.maks(s);        // hvilken maks-metode?
+        System.out.println(s[k]);      // Utskrift:  Thanh
+
+        String[] s = {"Per","Kari","Ole","Anne","Ali","Eva"};
+        Tabell.innsettingssortering(s);
+        System.out.println(Arrays.toString(s));  // [Ali, Anne, Eva, Kari, Ole, Per]
+    */
+
+    }
 
 }
