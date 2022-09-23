@@ -60,9 +60,20 @@ public class Program {
 
     }
     */
-  int[] a = {7,5,9,2,10,4,1,8,6,3};     // en usortert heltallstabell
-  Tabell.utvalgssortering(a);           // stigende sortering
-  Tabell.snu(a);                        // tabellen snus
-  Tabell.skriv(a);
-    }              // 10 9 8 7 6 5 4 3 2 1
+     //   int[] a = {1, 3, 4, 4, 5, 7, 7, 7, 7, 8, 9, 10, 10, 12, 15, 15, 15};
+     //   System.out.println(Tabell.binærsøk3d(a,4));
+        int[] a = Tabell.randPerm(100000);
+        int[] b = a.clone();
+        long tid1 =System.currentTimeMillis();
+        Tabell.utvalgssortering(a);
+        tid1=System.currentTimeMillis()-tid1;
+
+        long tid2=System.currentTimeMillis();
+        Tabell.innsettingssortering(b);
+        tid2=System.currentTimeMillis()-tid2;
+
+        System.out.println("Utvalgsortering har brukt: "+tid1);
+        System.out.println("InsetningSortering har brukt: "+tid2);
+    }// 10 9 8 7 6 5 4 3 2 1
+
 }

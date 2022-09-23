@@ -90,7 +90,7 @@ public class Tabell {
     }
     public static void skriv(int[] a){
         for (int i:a){
-            System.out.println(i+" ");
+            System.out.print(i+" ");
         }
     }
     public static void skriv2(int[] c, int fra, int til){
@@ -330,11 +330,95 @@ public class Tabell {
 
     }
     public static void UtvalgSortering (int[] a, int fra, int til  ){
-        for (int i=0; i<a.length; i++){
-            int m=i;
-
+        for (int i=fra; i<til-1; i++){
+            bytt(a,i,min(a,i,til));
         }
     }
+    public static void UtvalgSortering(int [] a){
+        UtvalgSortering(a, 0, a.length);
+    }
+    public static int utvalgssorteringMedAntall(int[] a)
+    {
+        int antall = 0;
+        for (int i = 0; i < a.length - 1; i++)
+        {
+            int m = min(a, i, a.length);  // posisjonen til den minste
+            if (m != i) bytt(a, i, m);
+            else antall++;
+        }
+        return antall;
+    }
+    public static int usortertsøk(int[] a, int verdi)  // tabell og søkeverdi
+    {
+        for (int i = 0; i < a.length; i++)  // går gjennom tabellen
+            if (verdi == a[i]) return i;      // verdi funnet - har indeks i
 
+        return -1;                          // verdi ikke funnet
+    }
+    public static int usorterSøkPossijon(int[] a, int verdi){
+     if (a.length==0 || verdi<a[0]){
+         return -1;
+     }
+     int p=0;
+     for (int i=a.length-1; i>=0; i--){
+         if (verdi==a[i]){
+             p=i;
+             return p;
+         }
+     }
+     return -1;
+    }
+    public static int binærsøk(int[] a, int fra, int til, int verdi)
+    {
+        Tabell.fratilKontroll(a.length,fra,til);  // se Programkode 1.2.3 a)
+        int v = fra, h = til - 1;  // v og h er intervallets endepunkter
 
+        while (v <= h)    // fortsetter så lenge som a[v:h] ikke er tom
+        {
+            int m = (v + h)/2;      // heltallsdivisjon - finner midten
+            int midtverdi = a[m];   // hjelpevariabel for midtverdien
+
+            if (verdi == midtverdi) return m;          // funnet
+            else if (verdi > midtverdi) v = m + 1;     // verdi i a[m+1:h]
+            else  h = m - 1;                           // verdi i a[v:m-1]
+        }
+
+        return -(v + 1);    // ikke funnet, v er relativt innsettingspunkt
+    }
+
+    public static int binærsøk(int[] a, int verdi)  // søker i hele a
+    {
+        return binærsøk(a,0,a.length,verdi);  // bruker metoden over
+    }
+    public static int binærsøk3rd(int[] a, int fra, int til, int verdi)
+    {
+        Tabell.fratilKontroll(a.length,fra,til);  // se Programkode 1.2.3 a)
+        int v = fra, h = til - 1;  // v og h er intervallets endepunkter
+
+        while (v < h)  // obs. må ha v < h her og ikke v <= h
+        {
+            int m = (v + h)/2;  // heltallsdivisjon - finner midten
+
+            if (verdi > a[m]) v = m + 1;   // verdi må ligge i a[m+1:h]
+            else  h = m;                   // verdi må ligge i a[v:m]
+        }
+        if (h < v || verdi < a[v]) return -(v + 1);  // ikke funnet
+        else if (verdi == a[v]) return v;            // funnet
+        else  return -(v + 2);                       // ikke funnet
+    }
+    public static int binærsøk3d(int[] a, int verdi){
+     return binærsøk3rd(a,0,a.length,verdi);
+    }
+    public static void innsettingssortering(int[] a)
+    {
+        for (int i = 1; i < a.length; i++)  // starter med i = 1
+        {
+            int verdi = a[i];
+            int j = i - 1;      // verdi er et tabellelemnet, j er en indeks
+            for (; j >= 0 && verdi < a[j]; j--) {
+                a[j+1] = a[j];// sammenligner og flytter
+            }
+            a[j + 1] = verdi;                 // j + 1 er rett sortert plass
+        }
+    }
 }
