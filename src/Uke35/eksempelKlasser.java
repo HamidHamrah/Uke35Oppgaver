@@ -29,15 +29,26 @@ public class eksempelKlasser {
             System.out.println(m.toString() + " (" + m.name() + ") " + m.mndnr());
         }
         */
-        Student[] s = new Student[5];  // en Studenttabell
+        Person[] p = new Person[5];                       // en persontabell
+        p[0] = new Person("Kari", "Svendsen");            // Kari Svendsen
+        p[1] = new Person("Boris", "Zukanovic");          // Boris Zukanovic
+        p[2] = new Person("Ali", "Kahn");                 // Ali Kahn
+        p[3] = new Person("Azra", "Zukanovic");           // Azra Zukanovic
+        p[4] = new Person("Kari", "Pettersen");           // Kari Pettersen
 
-        s[0] = new Student("Kari", "Svendsen", Studium.Data);    // Kari Svendsen
-        s[1] = new Student("Boris", "Zukanovic", Studium.IT);    // Boris Zukanovic
-        s[2] = new Student("Ali", "Kahn", Studium.Anvendt);      // Ali Kahn
-        s[3] = new Student("Azra", "Zukanovic", Studium.IT);     // Azra Zukanovic
-        s[4] = new Student("Kari", "Pettersen", Studium.Data);   // Kari Pettersen
-        Tabell.innsettingssortering(s);                     // Programkode 1.4.2 e)
-        for (Student t : s) System.out.println(t);
+        class FornavnKomparator implements Komparator<Person>
+        {
+            public int compare(Person p1, Person p2)        // to personer
+            {
+                return p1.fornavn().compareTo(p2.fornavn());  // sammenligner fornavn
+            }
+        }
+
+        Komparator<Person> c = new FornavnKomparator();   // en instans av klassen
+        Tabell.innsettingssortering(p, c);                // se Programkode 1.4.6 b)
+
+        System.out.println(Arrays.toString(p));           // Utskrift av tabellen p
+        // [Ali Kahn, Azra Zukanovic, Boris Zukanovic, Kari Svendsen, Kari Pettersen]
     }
     public static final class Heltall implements Comparable<Heltall>
     {
@@ -185,5 +196,9 @@ public class eksempelKlasser {
         public Studium studium() { return studium; }
 
     }  // class Student
+    public interface Komparator<T>      // et funksjonsgrensesnitt
+    {
+        int compare(T x, T y);            // en abstrakt metode
+    }
 
 }
