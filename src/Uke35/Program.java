@@ -126,7 +126,7 @@ public class Program {
         Boolean[] b = {false, true, true, false, false, true, false, true};
         Tabell.innsettingssortering(b, eksempelKlasser.Komparator.naturligOrden());
           System.out.println(Arrays.toString(b));
-    */
+
 
 
         class EtternavnKompertaor implements Komparator<Person>
@@ -153,6 +153,33 @@ public class Program {
 
         Tabell.innsettingssortering(s,Komparator.naturligOrden());
         System.out.println(Arrays.toString(s));
+
+
+        Komparator<Integer> c = (x,y) ->
+        {
+            if ((x - y) % 2 == 0) return 0;  // begge partall eller begge oddetall
+            if (x % 2 == 0) return 1;        // x partall og y oddetall
+            else return -1;                  // x oddetall og y partall                   // x oddetall og y partall
+        };
+
+        Integer[] b = {6,2,7,1,9,5,10,8,4,3};
+        Tabell.innsettingssortering(b, c.deretter(x -> x));
+
+        System.out.println(Arrays.toString(b));
+        // Utskrift: [7, 1, 9, 5, 3, 6, 2, 10, 8, 4]
+
+
+        String[] s = {"Lars","Anders","Bodil","Kari","Per","Berit"};
+        Tabell.innsettingssortering(s, Komparator.orden(String::length));
+
+        System.out.println(Arrays.toString(s));
+        // Utskrift: [Per, Kari, Lars, Berit, Bodil, Anders]
+
+    */
+        String[] s = {"21","18","8","13","20","6","16","25","3","10","10"};
+        Tabell.innsettingssortering(s, Komparator.orden(String::length).deretter(x -> x));
+        System.out.println(Arrays.toString(s));
+
 
     }
 
