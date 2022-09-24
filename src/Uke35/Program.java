@@ -1,5 +1,8 @@
 package Uke35;
 
+import Uke35.eksempelKlasser.Komparator;
+import Uke35.eksempelKlasser.Person;
+
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Random;
@@ -112,7 +115,7 @@ public class Program {
         );
         System.out.println(Arrays.toString(s));
 
-    */
+
         Double[] d = {5.7,3.14,7.12,3.9,6.5,7.1,7.11};
         Tabell.innsettingssortering(d, eksempelKlasser.Komparator.naturligOrden());
         System.out.println(Arrays.toString(d));
@@ -122,17 +125,34 @@ public class Program {
 
         Boolean[] b = {false, true, true, false, false, true, false, true};
         Tabell.innsettingssortering(b, eksempelKlasser.Komparator.naturligOrden());
-        System.out.println(Arrays.toString(b));
+          System.out.println(Arrays.toString(b));
+    */
 
-        class EtternavnKompertaor implements eksempelKlasser.Komparator<eksempelKlasser.Person>
+
+        class EtternavnKompertaor implements Komparator<Person>
         {
-            public int compare(eksempelKlasser.Person p1, eksempelKlasser.Person p2)        // to personer
+            public int compare(Person p1, Person p2)        // to personer
             {
-                return p1.fornavn().compareTo(p2.fornavn());  // sammenligner fornavn
+                return p1.etternavn().compareTo(p2.etternavn());  // sammenligner fornavn
             }
         }
+        Person[] p = new Person[5];                       // en persontabell
+        p[0] = new Person("Kari", "Svendsen");            // Kari Svendsen
+        p[1] = new Person("Boris", "Zukanovic");          // Boris Zukanovic
+        p[2] = new Person("Ali", "Kahn");                 // Ali Kahn
+        p[3] = new Person("Azra", "Zukanovic");           // Azra Zukanovic
+        p[4] = new Person("Kari", "Pettersen");           // Kari Pettersen
 
+        Komparator<Person> c = new EtternavnKompertaor();   // en instans av klassen
+        Tabell.innsettingssortering(p, c);
+        System.out.println(Arrays.toString(p));
 
+        String[] s = {"Lars","Anders","Bodil","Kari","Per","Berit"};
+        Tabell.innsettingssortering(s,Komparator.omvendtOrden());
+        System.out.println(Arrays.toString(s));
+
+        Tabell.innsettingssortering(s,Komparator.naturligOrden());
+        System.out.println(Arrays.toString(s));
 
     }
 
