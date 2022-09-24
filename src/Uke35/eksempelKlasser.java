@@ -45,10 +45,14 @@ public class eksempelKlasser {
         }
 
         Komparator<Person> c = new FornavnKomparator();   // en instans av klassen
-        Tabell.innsettingssortering(p, c);                // se Programkode 1.4.6 b)
+      //  Tabell.innsettingssortering(p, c);                // se Programkode 1.4.6 b)
 
-        System.out.println(Arrays.toString(p));           // Utskrift av tabellen p
+     //   System.out.println(Arrays.toString(p));           // Utskrift av tabellen p
         // [Ali Kahn, Azra Zukanovic, Boris Zukanovic, Kari Svendsen, Kari Pettersen]
+
+     //   Tabell.innsettingssortering(p, (p1,p2) -> p1.fornavn().compareTo(p2.fornavn()));
+     //   System.out.println(Arrays.toString(p));
+    
     }
     public static final class Heltall implements Comparable<Heltall>
     {
@@ -118,7 +122,7 @@ public class eksempelKlasser {
         IT ("Informasjonsteknologi"),        // enumkonstanten IT
         Anvendt ("Anvendt datateknologi"),   // enumkonstanten Anvendt
         Enkeltemne ("Enkeltemnestudent"),    // enumkonstanten Enkeltemne
-        Elektor("Ingeniørfag - elektronikk og informasjonsteknologi");
+        Elektro("Ingeniørfag - elektronikk og informasjonsteknologi");
 
         private final String fulltnavn;      // instansvariabel
         private Studium(String fulltnavn) { this.fulltnavn = fulltnavn; }
@@ -196,9 +200,37 @@ public class eksempelKlasser {
         public Studium studium() { return studium; }
 
     }  // class Student
+
     public interface Komparator<T>      // et funksjonsgrensesnitt
     {
-        int compare(T x, T y);            // en abstrakt metode
+        int compare(T o1, T o2);          // en abstrakt metode
+
+        public static <T extends Comparable<? super T>> Komparator<T> naturligOrden()
+        {
+            return (x, y) -> x.compareTo(y);
+        }
+
+        public static <T extends Comparable<? super T>> Komparator<T> omvendtOrden()
+        {
+            return (x, y) -> y.compareTo(x);
+        }
+
+        public static <T, R extends Comparable<? super R>>
+        Komparator<T> orden(Funksjon<? super T, ? extends R> velger)
+        {
+            return (x, y) -> velger.anvend(x).compareTo(velger.anvend(y));
+        }
+
+        public static <T, R> Komparator<T> orden
+                (Funksjon<? super T, ? extends R> velger, Komparator<? super R> c)
+        {
+            return (x, y) -> c.compare(velger.anvend(x), velger.anvend(y));
+        }
+
+    }  // Komparator
+    public interface Funksjon<T,R>    // T for argumenttype, R for returtype
+    {
+        R anvend(T t);
     }
 
 }

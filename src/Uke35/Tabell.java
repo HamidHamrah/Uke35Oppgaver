@@ -512,6 +512,16 @@ public class Tabell {
             a[j + 1] = verdi;      // j + 1 er rett sortert plass
         }
     }
-
+    public static <T> int maks(T[] a, eksempelKlasser.Komparator<? super T> c){
+        int m=0; // indeks til den størst verdi
+        T maksverdi=a[0];
+        for (int i=1; i<a.length; i++){
+            if (c.compare(a[i],maksverdi)>0){
+                maksverdi=a[i];
+                m=i;
+            }
+        }
+        return m;
+    }
 
 }

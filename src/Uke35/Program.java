@@ -93,13 +93,46 @@ public class Program {
         Tabell.innsettingssortering(a);
         System.out.println(Arrays.toString(a));
         // Utskrift: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    */
+
         int[] a = {5,2,7,3,9,1,8,10,4,6};          // en int-tabell
         eksempelKlasser.Heltall[] h = new eksempelKlasser.Heltall[a.length];       // en Heltall-tabell
 
         for (int i = 0; i < h.length; i++) h[i] = new eksempelKlasser.Heltall(a[i]);
         Tabell.innsettingssortering(h);           // generisk sortering
         System.out.println(Arrays.toString(h));   // utskrift
+
+
+        String[] s = {"21","18","8","13","20","6","16","25","3","10"};
+
+        Tabell.innsettingssortering(s, (x,y) ->
+                {
+                    int k = x.length() - y.length();
+                    return k != 0 ? k : x.compareTo(y);
+                }
+        );
+        System.out.println(Arrays.toString(s));
+
+    */
+        Double[] d = {5.7,3.14,7.12,3.9,6.5,7.1,7.11};
+        Tabell.innsettingssortering(d, eksempelKlasser.Komparator.naturligOrden());
+        System.out.println(Arrays.toString(d));
+
+        Tabell.innsettingssortering(d, eksempelKlasser.Komparator.omvendtOrden());
+        System.out.println(Arrays.toString(d));
+
+        Boolean[] b = {false, true, true, false, false, true, false, true};
+        Tabell.innsettingssortering(b, eksempelKlasser.Komparator.naturligOrden());
+        System.out.println(Arrays.toString(b));
+
+        class EtternavnKompertaor implements eksempelKlasser.Komparator<eksempelKlasser.Person>
+        {
+            public int compare(eksempelKlasser.Person p1, eksempelKlasser.Person p2)        // to personer
+            {
+                return p1.fornavn().compareTo(p2.fornavn());  // sammenligner fornavn
+            }
+        }
+
+
 
     }
 
