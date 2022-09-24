@@ -478,13 +478,6 @@ public class Tabell {
     {
         skrivln(a,0,a.length);
     }
-    public static void bytt(Object[] a, int i, int j)
-    {
-        Object temp = a[i];
-        a[i] = a[j];
-        a[j] = temp;
-    }
-
     public static Integer[] randPermInteger(int n)
     {
         Integer[] a = new Integer[n];               // en Integer-tabell
@@ -499,29 +492,66 @@ public class Tabell {
         }
         return a;  // tabellen med permutasjonen returneres
     }
-    public static <T> void innsettingssortering(T[] a, eksempelKlasser.Komparator<? super T> c)
+    public static <T> void innsettingssortering(T[] a, eksempelKlasser.Comparator<? super T> c)
     {
-        for (int i = 1; i < a.length; i++)  // starter med i = 1
+        for (int i = 1; i < a.length; i++)
         {
-            T verdi = a[i];        // verdi er et tabellelemnet
-            int  j = i - 1;        // j er en indeks
+            T temp = a[i];  // flytter a[i] til en hjelpevariabel
 
-            // sammenligner og forskyver:
-            for (; j >= 0 && c.compare(verdi,a[j]) < 0 ; j--) a[j+1] = a[j];
+            int j = i-1;    // starter med neste tabellposisjon
 
-            a[j + 1] = verdi;      // j + 1 er rett sortert plass
+            // en og en verdi flyttes inntil rett sortert plass er funnet
+            for (; j >= 0 && c.compare(temp,a[j]) < 0; j--) a[j+1] = a[j];
+
+            a[j+1] = temp;  // temp legges inn på rett plass
         }
+    } // innsettingssortering
+    public static <T> int maks(T[] a, eksempelKlasser.Comparator<? super T> c)
+    {
+        return maks(a, 0, a.length, c);  // kaller metoden under
     }
-    public static <T> int maks(T[] a, eksempelKlasser.Komparator<? super T> c){
-        int m=0; // indeks til den størst verdi
-        T maksverdi=a[0];
-        for (int i=1; i<a.length; i++){
-            if (c.compare(a[i],maksverdi)>0){
-                maksverdi=a[i];
-                m=i;
+
+    public static <T> int maks(T[] a, int fra, int til, eksempelKlasser.Comparator<? super T> c)
+    {
+        fratilKontroll(a.length,fra,til);
+
+        if (fra == til) throw new NoSuchElementException
+                ("fra(" + fra + ") = til(" + til + ") - tomt tabellintervall!");
+
+        int m = fra;                // indeks til største verdi
+        T maksverdi = a[fra];       // største verdi
+
+        for (int i = fra + 1; i < til; i++)   // går gjennom intervallet
+        {
+            if (c.compare(a[i],maksverdi) > 0)  // bruker komparatoren
+            {
+                maksverdi = a[i];     // største verdi oppdateres
+                m = i;                // indeks til største verdi oppdateres
             }
         }
-        return m;
+        return m;                 // posisjonen til største verdi
+
+    }  // maks
+    public static <T> void bytt(T[] a, int i, int j)
+    {
+        T temp = a[i]; a[i] = a[j]; a[j] = temp;
     }
+    public static <T> int min(T[] a, int fra, int til, eksempelKlasser.Comparator<? super T> c)
+    {
+        if (fra < 0 || til > a.length || fra >= til)
+            throw new IllegalArgumentException("Illegalt intervall!");
+
+        int m = fra;           // indeks til minste verdi i a[fra:til>
+        T minverdi = a[fra];   // minste verdi i a[fra:til>
+
+        for (int i = fra + 1; i < til; i++) if (c.compare(a[i], minverdi) < 0)
+        {
+            m = i;               // indeks til minste verdi oppdateres
+            minverdi = a[m];     // minste verdi oppdateres
+        }
+
+        return m;  // posisjonen til minste verdi i a[fra:til>
+    }
+
 
 }

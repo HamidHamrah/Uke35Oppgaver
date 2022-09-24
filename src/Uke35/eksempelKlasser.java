@@ -1,6 +1,7 @@
 package Uke35;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Objects;
 
 public class eksempelKlasser {
@@ -29,29 +30,6 @@ public class eksempelKlasser {
             System.out.println(m.toString() + " (" + m.name() + ") " + m.mndnr());
         }
         */
-        Person[] p = new Person[5];                       // en persontabell
-        p[0] = new Person("Kari", "Svendsen");            // Kari Svendsen
-        p[1] = new Person("Boris", "Zukanovic");          // Boris Zukanovic
-        p[2] = new Person("Ali", "Kahn");                 // Ali Kahn
-        p[3] = new Person("Azra", "Zukanovic");           // Azra Zukanovic
-        p[4] = new Person("Kari", "Pettersen");           // Kari Pettersen
-
-        class FornavnKomparator implements Komparator<Person>
-        {
-            public int compare(Person p1, Person p2)        // to personer
-            {
-                return p1.fornavn().compareTo(p2.fornavn());  // sammenligner fornavn
-            }
-        }
-
-        Komparator<Person> c = new FornavnKomparator();   // en instans av klassen
-      //  Tabell.innsettingssortering(p, c);                // se Programkode 1.4.6 b)
-
-     //   System.out.println(Arrays.toString(p));           // Utskrift av tabellen p
-        // [Ali Kahn, Azra Zukanovic, Boris Zukanovic, Kari Svendsen, Kari Pettersen]
-
-     //   Tabell.innsettingssortering(p, (p1,p2) -> p1.fornavn().compareTo(p2.fornavn()));
-     //   System.out.println(Arrays.toString(p));
     
     }
     public static final class Heltall implements Comparable<Heltall>
@@ -205,7 +183,7 @@ public class eksempelKlasser {
     {
         R anvend(T t);
     }
-    public interface Komparator<T>      // et funksjonsgrensesnitt
+    public interface Comparator<T>      // et funksjonsgrensesnitt
     {
         // Den abstrakte metoden:
 
@@ -213,31 +191,31 @@ public class eksempelKlasser {
 
         // Statiske metoder:
 
-        public static <T extends Comparable<? super T>> Komparator<T> naturligOrden()
+        public static <T extends Comparable<? super T>> Comparator<T> naturligOrden()
         {
             return (x,y) -> x.compareTo(y);
         }
 
-        public static <T extends Comparable<? super T>> Komparator<T> omvendtOrden()
+        public static <T extends Comparable<? super T>> Comparator<T> omvendtOrden()
         {
             return (x, y) -> y.compareTo(x);
         }
 
         public static <T, R extends Comparable<? super R>>
-        Komparator<T> orden(Funksjon<? super T, ? extends R> velger)
+        Comparator<T> orden(Funksjon<? super T, ? extends R> velger)
         {
             return (x, y) -> velger.anvend(x).compareTo(velger.anvend(y));
         }
 
-        public static <T, R> Komparator<T> orden
-                (Funksjon<? super T, ? extends R> velger, Komparator<? super R> c)
+        public static <T, R> Comparator<T> orden
+                (Funksjon<? super T, ? extends R> velger, Comparator<? super R> c)
         {
             return (x, y) -> c.compare(velger.anvend(x), velger.anvend(y));
         }
 
         // Default metoder
 
-        default Komparator<T> deretter(Komparator<? super T> c)
+        default Comparator<T> deretter(Comparator<? super T> c)
         {
             return (x, y) ->
             {
@@ -247,7 +225,7 @@ public class eksempelKlasser {
         }
 
         default <R extends Comparable<? super R>>
-        Komparator<T> deretter(Funksjon<? super T, ? extends R> velger)
+        Comparator<T> deretter(Funksjon<? super T, ? extends R> velger)
         {
             return (x, y) ->
             {
@@ -256,8 +234,8 @@ public class eksempelKlasser {
             };
         }
 
-        default <R> Komparator<T>
-        deretter(Funksjon<? super T, ? extends R> velger, Komparator<? super R> c)
+        default <R> Comparator<T>
+        deretter(Funksjon<? super T, ? extends R> velger, Comparator<? super R> c)
         {
             return (x, y) ->
             {
@@ -266,11 +244,10 @@ public class eksempelKlasser {
             };
         }
 
-        default Komparator<T> omvendt()
+        default Comparator<T> omvendt()
         {
             return (x, y) -> compare(y, x);  // bytter x og y
         }
 
     } // Komparator
-
 }

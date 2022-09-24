@@ -1,13 +1,5 @@
 package Uke35;
 
-import Uke35.eksempelKlasser.Komparator;
-import Uke35.eksempelKlasser.Person;
-
-import java.math.BigInteger;
-import java.util.Arrays;
-import java.util.Random;
-
-
 public class Program {
 
     public static void main(String ... args)      // hovedprogram
@@ -175,10 +167,11 @@ public class Program {
         System.out.println(Arrays.toString(s));
         // Utskrift: [Per, Kari, Lars, Berit, Bodil, Anders]
 
-    */
+
         String[] s = {"21","18","8","13","20","6","16","25","3","10","10"};
         Tabell.innsettingssortering(s, Komparator.orden(String::length).deretter(x -> x));
         System.out.println(Arrays.toString(s));
+    */
 
 
     }
