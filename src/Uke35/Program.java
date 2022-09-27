@@ -1,5 +1,8 @@
 package Uke35;
 
+import java.awt.*;
+import java.util.Comparator;
+
 public class Program {
 
     public static void main(String ... args)      // hovedprogram
@@ -172,6 +175,8 @@ public class Program {
         Tabell.innsettingssortering(s, Komparator.orden(String::length).deretter(x -> x));
         System.out.println(Arrays.toString(s));
     */
+
+
 
 
     }
